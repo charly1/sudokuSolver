@@ -3,7 +3,9 @@
 """
 Created on Mon Mar  9 20:47:16 2020
 
-@author: charly
+Very simple, compact and effivient Sudoku Solver
+
+@author: charly1
 """
 import numpy as np
 import copy
@@ -11,11 +13,18 @@ import copy
 SIZE_GRID = 9
                 
 class SodukuSolver():
+    """
+    s = SodukuSolver(grid)
+    
+    with grid : np.array((9,9))
+
+    return grid (empty if error found)
+    """
     def __init__(self,grid):
         self.grid = grid
         self.gridPos = self.generateGridPossibleNumbers()
         
-    def solve(self):
+    def solve(self,verbose=False):
         if self.testIfGridvalid():
             return np.array([])
         
@@ -39,7 +48,8 @@ class SodukuSolver():
                         break
             else:
                 numUnknown = newNumUnknown
-        print("Done in ",counterIter," iterations")
+        if verbose == True:
+            print("Done in ",counterIter," iterations")
         return self.grid
         
     def generateNewGridBasedOnTry(self):
